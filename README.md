@@ -31,20 +31,10 @@ Create a `.env` file in the `backend/` folder:
 
 ```
 JWT_SECRET=your_jwt_secret_here
-MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/shophub?retryWrites=true&w=majority
+MONGO_URI=<ask the project owner for the MongoDB connection string>
 ```
 
-Replace `<username>`, `<password>`, and `<cluster>` with your MongoDB Atlas credentials.
-
-### 3. Seed the database (optional)
-
-This loads ~4,000 sample products from the CSV dataset into MongoDB:
-
-```bash
-node seed.js
-```
-
-### 4. Start the backend
+### 3. Start the backend
 
 ```bash
 npm start
@@ -52,7 +42,7 @@ npm start
 
 Server runs at `http://localhost:3000`.
 
-### 5. Set up the frontend
+### 4. Set up the frontend
 
 Open a new terminal:
 
