@@ -8,6 +8,9 @@ const { protect, sellerOnly } = require('./middlewares/authMiddlewares');
 // Load environment variables from .env
 require('dotenv').config();
 
+const connectDB = require('./config/db');
+connectDB();
+
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes'); 
 const authRoutes = require('./routes/authRoutes'); 
