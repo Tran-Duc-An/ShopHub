@@ -16,6 +16,8 @@ const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes'); 
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const giftProfileRoutes = require('./routes/giftProfileRoutes');
+const aiChatRoutes = require('./routes/aiChatRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,6 +59,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/gift-profiles', giftProfileRoutes);
+app.use('/api/ai-chat', aiChatRoutes);
 
 // Start Server
 app.listen(PORT, () => {

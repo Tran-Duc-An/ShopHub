@@ -34,6 +34,14 @@ const ProfilePage = () => {
             <span>Seller Dashboard</span>
           </Link>
         )}
+        <Link to="/gift-profiles" className="profile-link-card">
+          <span className="profile-link-icon">🎁</span>
+          <span>Gift Profiles</span>
+        </Link>
+        <Link to="/ai-assistant" className="profile-link-card">
+          <span className="profile-link-icon">🤖</span>
+          <span>AI Gift Assistant</span>
+        </Link>
       </div>
     </div>
   );

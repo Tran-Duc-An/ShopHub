@@ -41,6 +41,8 @@ const MainLayout = () => {
               {user?.role === 'seller' && (
                 <Link to="/seller" onClick={closeMenu}>Seller Dashboard</Link>
               )}
+              <Link to="/gift-profiles" onClick={closeMenu}>Gift Profiles</Link>
+              <Link to="/ai-assistant" onClick={closeMenu}>AI Assistant</Link>
               <Link to="/profile" onClick={closeMenu}>Profile</Link>
               <button onClick={handleLogout} className="nav-logout">Logout</button>
             </>

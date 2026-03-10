@@ -15,6 +15,8 @@ import SellerPage from './pages/SellerPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import SellerRoute from './components/SellerRoute';
 import MainLayout from './layouts/MainLayout';
+import GiftProfilesPage from './pages/GiftProfilesPage';
+import AIAssistantPage from './pages/AIAssistantPage';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "seller",
         element: <SellerRoute><SellerDashboard /></SellerRoute>
+      },
+      {
+        path: "gift-profiles",
+        element: <ProtectedRoute><GiftProfilesPage /></ProtectedRoute>
+      },
+      {
+        path: "ai-assistant",
+        element: <ProtectedRoute><AIAssistantPage /></ProtectedRoute>
       }
     ]
   }
