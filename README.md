@@ -20,6 +20,7 @@ git clone https://github.com/Tran-Duc-An/ShopHub.git
 cd ShopHub
 ```
 
+
 ### 2. Set up the backend
 
 ```bash
@@ -32,6 +33,7 @@ Create a `.env` file in the `backend/` folder:
 ```
 JWT_SECRET=your_jwt_secret_here
 MONGO_URI=<ask the project owner for the MongoDB connection string>
+GROQ_API_KEY=<your_groq_api_key>
 ```
 
 ### 3. Start the backend
@@ -56,7 +58,14 @@ Frontend runs at `http://localhost:5173`.
 
 ---
 
+
 ## Features
+### AI Gift Assistant (NEW!)
+- Personalized AI-powered gift recommendations for any occasion
+- Chat with the assistant to get tailored gift ideas for your loved ones
+- Select a saved profile or describe the recipient for better suggestions
+- AI only recommends products available in your store
+- Feedback system: rate and comment on AI suggestions to improve results
 
 ### Authentication
 - **Sign up** as a Customer or Seller
@@ -137,10 +146,19 @@ Frontend runs at `http://localhost:5173`.
 |--------|----------|-------------|
 | GET | `/api/users/profile` | Get user profile |
 
+
 ### Upload (Auth + Seller)
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/upload` | Upload product image |
+
+### AI Chat & Feedback (Requires auth)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/ai-chat` | Chat with AI assistant |
+| POST | `/api/ai-chat/suggest` | Get AI gift suggestions for a profile & occasion |
+| GET | `/api/ai-chat/feedback` | Get feedback for AI suggestions |
+| POST | `/api/ai-chat/feedback` | Submit feedback on AI suggestions |
 
 ---
 
@@ -153,3 +171,16 @@ Frontend runs at `http://localhost:5173`.
 | Database | MongoDB Atlas, Mongoose |
 | Auth | JWT, bcryptjs |
 | File Upload | Multer |
+| AI | Groq API (Llama 3), Custom Prompt Engineering |
+
+---
+
+## Screenshots
+
+![AI Assistant Chat](./screenshots/ai-assistant-demo.png)
+
+---
+
+## License
+
+MIT
