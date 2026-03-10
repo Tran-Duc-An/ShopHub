@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../config';
+import FeedbackForm from '../components/FeedbackForm';
 
 const OrderDetailPage = () => {
   const { id } = useParams();
@@ -9,6 +10,7 @@ const OrderDetailPage = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [feedbacks, setFeedbacks] = useState({});
 
   const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
 
@@ -20,6 +22,26 @@ const OrderDetailPage = () => {
   };
 
   useEffect(() => { fetchOrder(); }, [id]);
+
+  // Fetch feedback for all products in this order
+  useEffect(() => {
+    if (!order || !token) return;
+    const fetchFeedbacks = async () => {
+      try {
+        const res = await fetch(`${API_URL}/ai-chat/feedback`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        // Map by product_id
+        const fbMap = {};
+        (data.data || []).forEach(fb => {
+          if (fb.product) fbMap[fb.product._id || fb.product] = fb;
+        });
+        setFeedbacks(fbMap);
+      } catch {}
+    };
+    fetchFeedbacks();
+  }, [order, token]);
 
   const cancelOrder = async () => {
     setError('');
@@ -68,6 +90,26 @@ const OrderDetailPage = () => {
               <span>Qty: {item.quantity}</span>
               <span>${item.price_at_purchase.toFixed(2)} each</span>
               <span className="item-subtotal">${(item.price_at_purchase * item.quantity).toFixed(2)}</span>
+            </div>
+            {/* Feedback UI */}
+            <div style={{ marginTop: 8, marginLeft: 4, maxWidth: 340 }}>
+              <FeedbackForm
+                productId={item.product_id}
+                initial={feedbacks[item.product_id]}
+                token={token}
+                onSubmitted={() => {
+                  // Refresh feedbacks after submit
+                  fetch(`${API_URL}/ai-chat/feedback`, { headers })
+                    .then(res => res.json())
+                    .then(data => {
+                      const fbMap = {};
+                      (data.data || []).forEach(fb => {
+                        if (fb.product) fbMap[fb.product._id || fb.product] = fb;
+                      });
+                      setFeedbacks(fbMap);
+                    });
+                }}
+              />
             </div>
           </div>
         ))}

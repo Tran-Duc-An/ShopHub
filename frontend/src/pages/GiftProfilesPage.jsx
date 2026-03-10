@@ -11,6 +11,92 @@ const RELATIONSHIP_EMOJIS = {
   friend: '🤗', child: '🧒', colleague: '💼', other: '🎁'
 };
 
+const ALL_CATEGORIES = [
+  'Electronics', 'Smartphones & Accessories', 'Computers & Laptops',
+  'Audio & Headphones', 'Cameras & Photography', 'Gaming',
+  "Men's Clothing", "Women's Clothing", 'Shoes & Footwear',
+  'Bags & Luggage', 'Jewelry & Watches', 'Beauty & Personal Care',
+  'Home & Kitchen', 'Furniture & Decor', 'Lighting',
+  'Sports & Outdoors', 'Fitness & Gym', 'Toys & Games',
+  'Baby & Kids', 'Pet Supplies', 'Health & Wellness',
+  'Automotive', 'Tools & Hardware', 'Office Supplies',
+  'Books & Stationery', 'Food & Beverages', 'Garden & Outdoor Living',
+  'Musical Instruments', 'Art & Crafts', 'Other'
+];
+
+const SUGGESTED_INTERESTS = [
+  'fashion', 'tech', 'cooking', 'gaming', 'music', 'reading',
+  'fitness', 'travel', 'art', 'photography', 'outdoors', 'sports',
+  'beauty', 'gardening', 'movies', 'yoga', 'coffee', 'pets'
+];
+
+const ChipSelector = ({ label, options, selected, onChange, allowCustom = false, customPlaceholder = '' }) => {
+  const [customInput, setCustomInput] = useState('');
+
+  const toggle = (val) => {
+    const norm = val.trim().toLowerCase();
+    const current = selected.map(s => s.toLowerCase());
+    if (current.includes(norm)) {
+      onChange(selected.filter(s => s.toLowerCase() !== norm));
+    } else {
+      onChange([...selected, val.trim()]);
+    }
+  };
+
+  const addCustom = () => {
+    const val = customInput.trim();
+    if (!val) return;
+    if (!selected.some(s => s.toLowerCase() === val.toLowerCase())) {
+      onChange([...selected, val]);
+    }
+    setCustomInput('');
+  };
+
+  const isSelected = (val) => selected.some(s => s.toLowerCase() === val.toLowerCase());
+
+  return (
+    <div className="chip-selector">
+      <label>{label}</label>
+      <div className="chip-list">
+        {options.map(opt => (
+          <button
+            key={opt}
+            type="button"
+            className={`chip ${isSelected(opt) ? 'chip-active' : ''}`}
+            onClick={() => toggle(opt)}
+          >
+            {opt}
+          </button>
+        ))}
+        {selected
+          .filter(s => !options.some(o => o.toLowerCase() === s.toLowerCase()))
+          .map(custom => (
+            <button
+              key={custom}
+              type="button"
+              className="chip chip-active chip-custom"
+              onClick={() => toggle(custom)}
+            >
+              {custom} ×
+            </button>
+          ))}
+      </div>
+      {allowCustom && (
+        <div className="chip-custom-input">
+          <input
+            type="text"
+            value={customInput}
+            onChange={e => setCustomInput(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addCustom(); } }}
+            placeholder={customPlaceholder}
+          />
+          <button type="button" onClick={addCustom} className="chip-add-btn">Add</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const GiftProfilesPage = () => {
   const { token } = useAuth();
   const [profiles, setProfiles] = useState([]);
@@ -20,7 +106,7 @@ const GiftProfilesPage = () => {
   const [toast, setToast] = useState(null);
   const [form, setForm] = useState({
     name: '', relationship: 'girlfriend', birthday: '',
-    interests: '', preferred_categories: '',
+    interests: [], preferred_categories: [],
     price_range_min: 0, price_range_max: 500, notes: ''
   });
 
@@ -43,7 +129,11 @@ const GiftProfilesPage = () => {
   useEffect(() => { fetchProfiles(); }, [fetchProfiles]);
 
   const resetForm = () => {
-    setForm({ name: '', relationship: 'girlfriend', birthday: '', interests: '', preferred_categories: '', price_range_min: 0, price_range_max: 500, notes: '' });
+    setForm({
+      name: '', relationship: 'girlfriend', birthday: '',
+      interests: [], preferred_categories: [],
+      price_range_min: 0, price_range_max: 500, notes: ''
+    });
     setEditingId(null);
     setShowForm(false);
   };
@@ -53,8 +143,8 @@ const GiftProfilesPage = () => {
       name: p.name,
       relationship: p.relationship,
       birthday: p.birthday ? new Date(p.birthday).toISOString().split('T')[0] : '',
-      interests: (p.interests || []).join(', '),
-      preferred_categories: (p.preferred_categories || []).join(', '),
+      interests: p.interests || [],
+      preferred_categories: p.preferred_categories || [],
       price_range_min: p.price_range_min || 0,
       price_range_max: p.price_range_max || 500,
       notes: p.notes || ''
@@ -65,13 +155,7 @@ const GiftProfilesPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const body = {
-      ...form,
-      interests: form.interests ? form.interests.split(',').map(s => s.trim()).filter(Boolean) : [],
-      preferred_categories: form.preferred_categories ? form.preferred_categories.split(',').map(s => s.trim()).filter(Boolean) : [],
-      birthday: form.birthday || undefined
-    };
-
+    const body = { ...form, birthday: form.birthday || undefined };
     try {
       const url = editingId ? `${API_URL}/gift-profiles/${editingId}` : `${API_URL}/gift-profiles`;
       const method = editingId ? 'PUT' : 'POST';
@@ -132,29 +216,37 @@ const GiftProfilesPage = () => {
               </div>
 
               <div className="form-group">
-                <label>Interests (comma-separated)</label>
-                <input type="text" value={form.interests} onChange={e => setForm({ ...form, interests: e.target.value })} placeholder="e.g. fashion, tech, cooking" />
-              </div>
-
-              <div className="form-group">
-                <label>Preferred Categories (comma-separated)</label>
-                <input type="text" value={form.preferred_categories} onChange={e => setForm({ ...form, preferred_categories: e.target.value })} placeholder="e.g. Electronics, Fashion" />
-              </div>
-
-              <div className="form-group form-group-row">
-                <div>
-                  <label>Min Budget ($)</label>
-                  <input type="number" value={form.price_range_min} onChange={e => setForm({ ...form, price_range_min: Number(e.target.value) })} min="0" />
-                </div>
-                <div>
-                  <label>Max Budget ($)</label>
-                  <input type="number" value={form.price_range_max} onChange={e => setForm({ ...form, price_range_max: Number(e.target.value) })} min="0" />
+                <label>Budget Range ($)</label>
+                <div className="budget-row">
+                  <input type="number" value={form.price_range_min} onChange={e => setForm({ ...form, price_range_min: Number(e.target.value) })} min="0" placeholder="Min" />
+                  <span className="budget-dash">–</span>
+                  <input type="number" value={form.price_range_max} onChange={e => setForm({ ...form, price_range_max: Number(e.target.value) })} min="0" placeholder="Max" />
                 </div>
               </div>
 
               <div className="form-group form-group-full">
+                <ChipSelector
+                  label="Preferred Categories"
+                  options={ALL_CATEGORIES}
+                  selected={form.preferred_categories}
+                  onChange={val => setForm({ ...form, preferred_categories: val })}
+                />
+              </div>
+
+              <div className="form-group form-group-full">
+                <ChipSelector
+                  label="Interests"
+                  options={SUGGESTED_INTERESTS}
+                  selected={form.interests}
+                  onChange={val => setForm({ ...form, interests: val })}
+                  allowCustom
+                  customPlaceholder="Type a custom interest & press Enter or Add"
+                />
+              </div>
+
+              <div className="form-group form-group-full">
                 <label>Notes</label>
-                <textarea value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} placeholder="Any additional details..." rows={3} />
+                <textarea value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} placeholder="Any additional details about this person..." rows={3} />
               </div>
             </div>
 
@@ -196,8 +288,13 @@ const GiftProfilesPage = () => {
                     <span>💡</span> {p.interests.join(', ')}
                   </div>
                 )}
+                {p.preferred_categories?.length > 0 && (
+                  <div className="gift-profile-detail">
+                    <span>🏷️</span> {p.preferred_categories.join(', ')}
+                  </div>
+                )}
                 <div className="gift-profile-detail">
-                  <span>💰</span> ${p.price_range_min} - ${p.price_range_max}
+                  <span>💰</span> ${p.price_range_min} – ${p.price_range_max}
                 </div>
                 {p.gift_history?.length > 0 && (
                   <div className="gift-profile-detail">
@@ -207,7 +304,17 @@ const GiftProfilesPage = () => {
               </div>
 
               <div className="gift-profile-card-actions">
-                <Link to={`/ai-assistant?profile=${p.profile_id}`} className="btn-primary btn-sm">
+                <Link
+                  to={`/ai-assistant?profile=${p.profile_id}`}
+                  className="btn-primary btn-sm"
+                  onClick={() => {
+                    localStorage.setItem('selectedGiftProfile', JSON.stringify({
+                      profile_id: p.profile_id,
+                      name: p.name,
+                      relationship: p.relationship
+                    }));
+                  }}
+                >
                   🤖 Get Suggestions
                 </Link>
                 <button className="btn-secondary btn-sm" onClick={() => handleEdit(p)}>Edit</button>

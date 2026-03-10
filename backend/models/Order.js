@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const orderItemSchema = new mongoose.Schema({
   product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
   quantity: { type: Number, required: true },
-  price_at_purchase: { type: Number, required: true }
+  price_at_purchase: { type: Number, required: true },
+  recipient: { type: String, enum: ['girlfriend', 'boyfriend', 'wife', 'husband', 'mom', 'dad', 'sister', 'brother', 'friend', 'child', 'colleague', 'other'], required: false },
+  recipient_name: { type: String, required: false }
 });
 
 orderItemSchema.virtual('order_item_id').get(function () {

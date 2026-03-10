@@ -211,6 +211,12 @@ const AIAssistantPage = () => {
                       role: 'assistant',
                       content: `Switched to **${p.name}** (${p.relationship}). What occasion are you shopping for?`
                     }]);
+                    // Store selected profile for cart autofill
+                    localStorage.setItem('selectedGiftProfile', JSON.stringify({
+                      profile_id: p.profile_id,
+                      name: p.name,
+                      relationship: p.relationship
+                    }));
                   }}
                 >
                   <span className="ai-profile-btn-name">{p.name}</span>

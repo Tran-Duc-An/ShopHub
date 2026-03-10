@@ -25,11 +25,20 @@ const placeOrder = async (req, res) => {
         const total = cart.items.reduce((sum, item) => sum + item.product.final_price * item.quantity, 0);
         const totalRounded = Math.round(total * 100) / 100;
 
-        const orderItems = cart.items.map(item => ({
-            product: item.product._id,
-            quantity: item.quantity,
-            price_at_purchase: item.product.final_price
-        }));
+
+        // Accept recipient info from request body (if provided)
+        const recipientMap = (req.body.recipients || {});
+        const orderItems = cart.items.map(item => {
+            const productId = item.product._id.toString();
+            const recipientInfo = recipientMap[productId] || {};
+            return {
+                product: item.product._id,
+                quantity: item.quantity,
+                price_at_purchase: item.product.final_price,
+                recipient: recipientInfo.recipient || undefined,
+                recipient_name: recipientInfo.recipient_name || undefined
+            };
+        });
 
         const order = await Order.create({
             user: userId,

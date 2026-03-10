@@ -1,5 +1,6 @@
 const GiftProfile = require('../models/GiftProfile');
 const Product = require('../models/Product');
+const ChatHistory = require('../models/ChatHistory');
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
@@ -32,19 +33,24 @@ async function callAI(systemPrompt, userMessage) {
   return data.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
 }
 
-/**
- * Build a smart MongoDB query + scoring pipeline to get the most relevant
- * products for a given profile. Strategy:
- *
- * Tier 1 — profile's preferred_categories + price range  (most relevant, up to 15)
- * Tier 2 — interest keyword search across remaining categories (up to 10)
- *
- * Total capped at 20 products so the AI prompt stays small and focused.
- */
-async function getProductsForProfile(profile) {
-  const MAX_TOTAL = 20;
+const OCCASION_CATEGORY_HINTS = {
+  "valentine's day": ['Jewelry & Watches', 'Beauty & Personal Care', "Women's Clothing", 'Shoes & Footwear', 'Bags & Luggage', 'Art & Crafts'],
+  'birthday':        ['Toys & Games', 'Gaming', 'Electronics', 'Jewelry & Watches', 'Books & Stationery', 'Beauty & Personal Care', 'Smartphones & Accessories'],
+  'christmas':       ['Toys & Games', 'Gaming', 'Electronics', 'Home & Kitchen', 'Books & Stationery', "Men's Clothing", "Women's Clothing", 'Musical Instruments'],
+  'anniversary':     ['Jewelry & Watches', 'Beauty & Personal Care', 'Furniture & Decor', 'Shoes & Footwear', 'Bags & Luggage', 'Food & Beverages'],
+  "mother's day":    ['Beauty & Personal Care', 'Jewelry & Watches', 'Home & Kitchen', 'Furniture & Decor', "Women's Clothing", 'Health & Wellness', 'Garden & Outdoor Living'],
+  "father's day":    ['Electronics', 'Sports & Outdoors', 'Fitness & Gym', 'Tools & Hardware', 'Automotive', "Men's Clothing", 'Books & Stationery'],
+  'graduation':      ['Electronics', 'Computers & Laptops', 'Books & Stationery', 'Bags & Luggage', 'Office Supplies', 'Shoes & Footwear'],
+  'wedding':         ['Home & Kitchen', 'Furniture & Decor', 'Jewelry & Watches', 'Lighting', 'Art & Crafts', 'Food & Beverages'],
+  'housewarming':    ['Home & Kitchen', 'Furniture & Decor', 'Lighting', 'Garden & Outdoor Living', 'Tools & Hardware', 'Electronics'],
+  'thank you':       ['Beauty & Personal Care', 'Books & Stationery', 'Home & Kitchen', 'Food & Beverages', 'Art & Crafts', 'Health & Wellness'],
+  'just because':    [],
+};
+
+async function getProductsForProfile(profile, occasion = '') {
   const MAX_TIER1 = 15;
-  const MAX_TIER2 = 10;
+  const MAX_TIER2 = 15;
+  const MAX_TIER3 = 10;
 
   const priceFilter = profile?.price_range_max
     ? { final_price: { $gte: profile.price_range_min || 0, $lte: profile.price_range_max } }
@@ -52,56 +58,66 @@ async function getProductsForProfile(profile) {
 
   const fields = 'product_name brand category final_price rating image_url';
   const collectedIds = new Set();
-  let tier1 = [];
-  let tier2 = [];
+  const excludeIds = () => ({ $nin: Array.from(collectedIds) });
 
-  // --- Tier 1: preferred categories + price range ---
-  if (profile?.preferred_categories?.length > 0) {
-    tier1 = await Product.find({
-      category: { $in: profile.preferred_categories },
-      ...priceFilter
-    })
+  const fetchTier = async (query, limit) => {
+    const docs = await Product.find(query)
       .sort({ rating: -1 })
-      .limit(MAX_TIER1)
+      .limit(limit)
       .select(fields)
       .lean();
+    docs.forEach(p => collectedIds.add(p._id.toString()));
+    return docs;
+  };
 
-    tier1.forEach(p => collectedIds.add(p._id.toString()));
+  let tier1 = [];
+  if (profile?.preferred_categories?.length > 0) {
+    tier1 = await fetchTier({
+      category: { $in: profile.preferred_categories },
+      ...priceFilter
+    }, MAX_TIER1);
   }
 
-  // --- Tier 2: interest keyword search in remaining budget ---
-  const remaining = MAX_TOTAL - tier1.length;
-  if (remaining > 0 && profile?.interests?.length > 0) {
-    // Build a regex that matches any interest keyword in product name or category
+  const occasionKey = occasion.toLowerCase().trim();
+  const occasionHints = OCCASION_CATEGORY_HINTS[occasionKey] ?? [];
+  const preferredSet = new Set((profile?.preferred_categories || []).map(c => c.toLowerCase()));
+  const freshHints = occasionHints.filter(c => !preferredSet.has(c.toLowerCase()));
+
+  let tier2 = [];
+  if (freshHints.length > 0) {
+    tier2 = await fetchTier({
+      _id: excludeIds(),
+      category: { $in: freshHints },
+      ...priceFilter
+    }, MAX_TIER2);
+  }
+
+  let tier3 = [];
+  if (profile?.interests?.length > 0) {
     const keywords = profile.interests
-      .flatMap(i => i.split(/[\s,]+/))   // split "sports, outdoor" → ['sports', 'outdoor']
-      .filter(w => w.length > 2)          // skip tiny words
-      .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); // escape regex
+      .flatMap(i => i.split(/[\s,]+/))
+      .filter(w => w.length > 2)
+      .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
 
     if (keywords.length > 0) {
       const keywordRegex = new RegExp(keywords.join('|'), 'i');
-      tier2 = await Product.find({
-        _id: { $nin: Array.from(collectedIds) }, // exclude already picked
+      tier3 = await fetchTier({
+        _id: excludeIds(),
         ...priceFilter,
         $or: [
           { product_name: keywordRegex },
           { category: keywordRegex },
           { brand: keywordRegex }
         ]
-      })
-        .sort({ rating: -1 })
-        .limit(Math.min(remaining, MAX_TIER2))
-        .select(fields)
-        .lean();
+      }, MAX_TIER3);
     }
   }
 
-  // --- Fallback: if profile gave us nothing, load top-rated across all ---
-  const combined = [...tier1, ...tier2];
+  const combined = [...tier1, ...tier2, ...tier3];
   if (combined.length === 0) {
     return await Product.find(priceFilter)
       .sort({ rating: -1 })
-      .limit(MAX_TOTAL)
+      .limit(30)
       .select(fields)
       .lean();
   }
@@ -109,20 +125,29 @@ async function getProductsForProfile(profile) {
   return combined;
 }
 
-// @desc    AI chat for gift suggestions
-// @route   POST /api/ai-chat
+function detectOccasion(message) {
+  const lower = message.toLowerCase();
+  for (const key of Object.keys(OCCASION_CATEGORY_HINTS)) {
+    if (lower.includes(key)) return key;
+  }
+  if (lower.includes('xmas')) return 'christmas';
+  if (lower.includes('bday') || lower.includes('birth day')) return 'birthday';
+  if (lower.includes('mom') || lower.includes('mother')) return "mother's day";
+  if (lower.includes('dad') || lower.includes('father')) return "father's day";
+  return '';
+}
+
 const chat = async (req, res) => {
   try {
     if (!process.env.GROQ_API_KEY) {
       return res.status(500).json({ message: 'AI service is not configured. Set GROQ_API_KEY in environment.' });
     }
 
-    const { message, profile_id } = req.body;
+    const { message, profile_id, product_id, feedbackType, context } = req.body;
     if (!message) {
       return res.status(400).json({ message: 'Message is required' });
     }
 
-    // Load profile once — used for both context and product filtering
     let profile = null;
     let profileContext = '';
     if (profile_id) {
@@ -132,13 +157,15 @@ const chat = async (req, res) => {
       if (profile && profile.user.toString() === req.user.id) {
         profileContext = buildProfileContext(profile);
       } else {
-        profile = null; // not authorized or not found — treat as no profile
+        profile = null;
       }
     }
 
+    const detectedOccasion = detectOccasion(message);
+
     const [categories, products] = await Promise.all([
       Product.distinct('category'),
-      getProductsForProfile(profile)
+      getProductsForProfile(profile, detectedOccasion)
     ]);
 
     const systemPrompt = buildSystemPrompt(categories, products, profileContext);
@@ -151,14 +178,25 @@ const chat = async (req, res) => {
       .replace(/  +/g, ' ')
       .trim();
 
+    // Save chat/feedback to ChatHistory
+    try {
+      await ChatHistory.create({
+        user: req.user.id,
+        product: product_id || (referencedProducts[0]?.product_id ?? null),
+        message,
+        feedbackType: feedbackType || null,
+        context: context || null
+      });
+    } catch (err) {
+      console.error('Failed to save chat history:', err.message);
+    }
+
     res.json({ reply: cleanReply, recommended_products: referencedProducts });
   } catch (error) {
     res.status(502).json({ message: `AI service error: ${error.message}` });
   }
 };
 
-// @desc    Get AI suggestions for a specific profile + occasion
-// @route   POST /api/ai-chat/suggest
 const suggest = async (req, res) => {
   try {
     if (!process.env.GROQ_API_KEY) {
@@ -179,7 +217,7 @@ const suggest = async (req, res) => {
     }
 
     const profileContext = buildProfileContext(profile);
-    const matchingProducts = await getProductsForProfile(profile);
+    const matchingProducts = await getProductsForProfile(profile, occasion);
 
     const productList = matchingProducts.map(p =>
       `- [ID:${p._id}] ${p.product_name} by ${p.brand} ($${p.final_price}, ${p.category}, rating: ${p.rating})`
@@ -287,7 +325,6 @@ function extractReferencedProducts(aiReply, productPool) {
     }
   };
 
-  // Pass 1: exact 24-char ObjectId in [PRODUCT:id] tags
   const idPattern = /\[PRODUCT:\s*([a-f0-9]{24})\s*\]/gi;
   let match;
   while ((match = idPattern.exec(aiReply)) !== null) {
@@ -300,7 +337,6 @@ function extractReferencedProducts(aiReply, productPool) {
     }
   }
 
-  // Pass 2: name-based matching for hallucinated / missing IDs
   const byNameLength = [...productPool].sort(
     (a, b) => b.product_name.length - a.product_name.length
   );
@@ -313,7 +349,6 @@ function extractReferencedProducts(aiReply, productPool) {
     }
   }
 
-  // Re-sort by order of appearance in the reply
   result.sort((a, b) => {
     const posA = aiReply.toLowerCase().indexOf(a.product_name.toLowerCase());
     const posB = aiReply.toLowerCase().indexOf(b.product_name.toLowerCase());
@@ -323,4 +358,38 @@ function extractReferencedProducts(aiReply, productPool) {
   return result;
 }
 
-module.exports = { chat, suggest };
+// Feedback endpoints (must be exported for router)
+const getFeedback = async (req, res) => {
+  try {
+    const { product_id } = req.query;
+    const filter = { user: req.user.id };
+    if (product_id) filter.product = product_id;
+    const feedbacks = await ChatHistory.find(filter)
+      .populate('product', 'product_name brand image_url')
+      .sort({ createdAt: -1 });
+    res.json({ data: feedbacks });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const postFeedback = async (req, res) => {
+  try {
+    const { product_id, message, rating, context } = req.body;
+    if (!product_id || !message || !rating) {
+      return res.status(400).json({ message: 'product_id, message, and rating are required' });
+    }
+    const feedback = await ChatHistory.create({
+      user: req.user.id,
+      product: product_id,
+      message,
+      rating,
+      context: context || null
+    });
+    res.status(201).json({ data: feedback });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { chat, suggest, getFeedback, postFeedback };
