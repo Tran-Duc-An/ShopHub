@@ -12,16 +12,36 @@ const RELATIONSHIP_EMOJIS = {
 };
 
 const ALL_CATEGORIES = [
-  'Electronics', 'Smartphones & Accessories', 'Computers & Laptops',
-  'Audio & Headphones', 'Cameras & Photography', 'Gaming',
-  "Men's Clothing", "Women's Clothing", 'Shoes & Footwear',
-  'Bags & Luggage', 'Jewelry & Watches', 'Beauty & Personal Care',
-  'Home & Kitchen', 'Furniture & Decor', 'Lighting',
-  'Sports & Outdoors', 'Fitness & Gym', 'Toys & Games',
-  'Baby & Kids', 'Pet Supplies', 'Health & Wellness',
-  'Automotive', 'Tools & Hardware', 'Office Supplies',
-  'Books & Stationery', 'Food & Beverages', 'Garden & Outdoor Living',
-  'Musical Instruments', 'Art & Crafts', 'Other'
+  "Electronics",
+  "Smartphones & Accessories",
+  "Computers & Laptops",
+  "Audio & Headphones",
+  "Cameras & Photography",
+  "Gaming",
+  "Men's Clothing",
+  "Women's Clothing",
+  "Shoes & Footwear",
+  "Bags & Luggage",
+  "Jewelry & Watches",
+  "Beauty & Personal Care",
+  "Home & Kitchen",
+  "Furniture & Decor",
+  "Lighting",
+  "Sports & Outdoors",
+  "Fitness & Gym",
+  "Toys & Games",
+  "Baby & Kids",
+  "Pet Supplies",
+  "Health & Wellness",
+  "Automotive",
+  "Tools & Hardware",
+  "Office Supplies",
+  "Books & Stationery",
+  "Food & Beverages",
+  "Garden & Outdoor Living",
+  "Musical Instruments",
+  "Art & Crafts",
+  "Other"
 ];
 
 const SUGGESTED_INTERESTS = [

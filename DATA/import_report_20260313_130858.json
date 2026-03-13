@@ -1,0 +1,432 @@
+{
+  "run_at": "2026-03-13T13:08:58.633558+00:00",
+  "database": "shophub",
+  "total_inserted": 29910,
+  "config": {
+    "TARGET": 50000,
+    "PER_CAT": 2000
+  },
+  "stats": {
+    "no_image": 10100,
+    "no_image_pct": 33.8,
+    "no_rating": 4742,
+    "no_rating_pct": 15.9,
+    "avg_price_usd": 41.89,
+    "min_price_usd": 2.42,
+    "max_price_usd": 1551.81
+  },
+  "image_check": {
+    "live": 19810,
+    "dead_cleared": 10100,
+    "no_url": 0
+  },
+  "category_breakdown": {
+    "Home & Kitchen": 2000,
+    "Bags & Luggage": 2000,
+    "Baby & Kids": 2000,
+    "Automotive": 2000,
+    "Cameras & Photography": 2000,
+    "Fitness & Gym": 2000,
+    "Food & Beverages": 2000,
+    "Pet Supplies": 2000,
+    "Men's Clothing": 2000,
+    "Jewelry & Watches": 2000,
+    "Women's Clothing": 2000,
+    "Beauty & Personal Care": 2000,
+    "Shoes & Footwear": 2000,
+    "Tools & Hardware": 2000,
+    "Musical Instruments": 1910
+  },
+  "samples_per_category": {
+    "Home & Kitchen": [
+      {
+        "name": "iSTAR Stainless Steel 304 Grade Foldable Towel Hanger for Bathroom/Towel Rod/Bar/Bathroom Accessories(24inch-Chrome) - Pac...",
+        "price": 6.55,
+        "rating": 4.5,
+        "has_image": false,
+        "main_cat": "home & kitchen",
+        "sub_cat": "Furniture"
+      },
+      {
+        "name": "Lukzer Engineered Wood Computer Desk with One Tier Shelves Laptop Study Table for Office Home Workstation Writing Modern D...",
+        "price": 32.41,
+        "rating": 3.7,
+        "has_image": false,
+        "main_cat": "home & kitchen",
+        "sub_cat": "Furniture"
+      },
+      {
+        "name": "Tiipro Prayer Mat (Black, Polyester, Standard, 1 Piece)",
+        "price": 181.0,
+        "rating": 4.2,
+        "has_image": false,
+        "main_cat": "home & kitchen",
+        "sub_cat": "Furniture"
+      }
+    ],
+    "Musical Instruments": [
+      {
+        "name": "Arturia MiniLab 3, 25 Slim-Key USB-C Midi Controller with 5-Year Warranty, 8 Backlit LED Pads, 8 Knobs, 4 Faders, Midi Ou...",
+        "price": 120.36,
+        "rating": 4.6,
+        "has_image": false,
+        "main_cat": "music",
+        "sub_cat": "Musical Instruments & Professional Audio"
+      },
+      {
+        "name": "YOUNG ELECTRONICS Wireless Singing Mike Multi-Function Bluetooth Karaoke Mic with Microphone Speaker for All Smart Phones ...",
+        "price": 5.72,
+        "rating": 3.0,
+        "has_image": false,
+        "main_cat": "music",
+        "sub_cat": "Musical Instruments & Professional Audio"
+      },
+      {
+        "name": "AHUJA Wireless Microphone AWM-700U2",
+        "price": 85.36,
+        "rating": 4.3,
+        "has_image": false,
+        "main_cat": "music",
+        "sub_cat": "Musical Instruments & Professional Audio"
+      }
+    ],
+    "Bags & Luggage": [
+      {
+        "name": "Alfisha Nylon Waterproof Strolley Luggage Duffle Bag with 2 Wheels (Brown, 55 L)",
+        "price": 6.42,
+        "rating": 3.5,
+        "has_image": true,
+        "main_cat": "bags & luggage",
+        "sub_cat": "Travel Duffles"
+      },
+      {
+        "name": "TAGUDA travel foldable portable lightweight luggage storage duffle tote hand organizer easy carry bags backpack set for me...",
+        "price": 3.6,
+        "rating": 3.4,
+        "has_image": true,
+        "main_cat": "bags & luggage",
+        "sub_cat": "Travel Duffles"
+      },
+      {
+        "name": "Gear polyester 24 Cms Duffle Bag(METRO NEW MAXIS DUFFELL CUM BACKPACK_grey)",
+        "price": 7.58,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "bags & luggage",
+        "sub_cat": "Travel Duffles"
+      }
+    ],
+    "Baby & Kids": [
+      {
+        "name": "DOMENICO Waterproof Colorful Children Bib Cute Cartoon Animals Baby Bibs Full Sleeve Children Apron Long Sleeve Feeding Bibs",
+        "price": 3.55,
+        "rating": 4.1,
+        "has_image": false,
+        "main_cat": "toys & baby products",
+        "sub_cat": "Nursing & Feeding"
+      },
+      {
+        "name": "Fisher-Price Baby's Food Mash and Serve Bowl Set (3 Months+, Blue and Red)",
+        "price": 3.2,
+        "rating": 4.4,
+        "has_image": false,
+        "main_cat": "toys & baby products",
+        "sub_cat": "Nursing & Feeding"
+      },
+      {
+        "name": "Naughty Kidz Water Filled Soft Cooling Teether Bpa Free Specially Designed to Ease Teething",
+        "price": 175.0,
+        "rating": 3.1,
+        "has_image": false,
+        "main_cat": "toys & baby products",
+        "sub_cat": "Nursing & Feeding"
+      }
+    ],
+    "Automotive": [
+      {
+        "name": "SOFTSPUN Microfiber Cloth - 4 pcs - 40x40 cms - 340 GSM Grey- Thick Lint & Streak-Free Multipurpose Cloths - Automotive Mi...",
+        "price": 3.24,
+        "rating": 4.3,
+        "has_image": false,
+        "main_cat": "car & motorbike",
+        "sub_cat": "All Car & Motorbike Products"
+      },
+      {
+        "name": "Involve Your Senses One Musk Organic Car Perfume Bar, Involve Your Senses Strong Fiber Air Freshener to Freshen'up Your Ca...",
+        "price": 3.7,
+        "rating": 3.8,
+        "has_image": false,
+        "main_cat": "car & motorbike",
+        "sub_cat": "All Car & Motorbike Products"
+      },
+      {
+        "name": "ShineXPro Microfiber Car Cleaning Cloth - OG Soft 500 GSM Extra Large (35x75 CM) Microfiber Cloth for Car and Bike - Suede...",
+        "price": 6.01,
+        "rating": 4.3,
+        "has_image": false,
+        "main_cat": "car & motorbike",
+        "sub_cat": "All Car & Motorbike Products"
+      }
+    ],
+    "Cameras & Photography": [
+      {
+        "name": "Redmi 10 Power (Power Black, 8GB RAM, 128GB Storage)",
+        "price": 132.52,
+        "rating": 4.0,
+        "has_image": true,
+        "main_cat": "tv, audio & cameras",
+        "sub_cat": "All Electronics"
+      },
+      {
+        "name": "OnePlus Nord CE 2 Lite 5G (Blue Tide, 6GB RAM, 128GB Storage)",
+        "price": 228.9,
+        "rating": 4.3,
+        "has_image": true,
+        "main_cat": "tv, audio & cameras",
+        "sub_cat": "All Electronics"
+      },
+      {
+        "name": "OnePlus Bullets Z2 Bluetooth Wireless in Ear Earphones with Mic, Bombastic Bass - 12.4 Mm Drivers, 10 Mins Charge - 20 Hrs...",
+        "price": 24.08,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "tv, audio & cameras",
+        "sub_cat": "All Electronics"
+      }
+    ],
+    "Fitness & Gym": [
+      {
+        "name": "Boldfit Resistance Tube with Foam Handles, Door Anchor for Exercise & Stretching, Suitable in Home & Gym Workout for Men &...",
+        "price": 3.36,
+        "rating": 4.0,
+        "has_image": true,
+        "main_cat": "sports & fitness",
+        "sub_cat": "All Exercise & Fitness"
+      },
+      {
+        "name": "Strauss Exercise Latex Resistance Bands, (Set of 5)",
+        "price": 5.89,
+        "rating": 4.1,
+        "has_image": true,
+        "main_cat": "sports & fitness",
+        "sub_cat": "All Exercise & Fitness"
+      },
+      {
+        "name": "AUXTER Faux Leather 23 Cms Duffle Bag(AUX_GB_LE_Black -SE_0521_Black)",
+        "price": 4.53,
+        "rating": 4.3,
+        "has_image": true,
+        "main_cat": "sports & fitness",
+        "sub_cat": "All Exercise & Fitness"
+      }
+    ],
+    "Food & Beverages": [
+      {
+        "name": "Nutraj 100% Natural Dried Premium California Walnut Kernels, 500g (2 X 250g) | Pure Without Shell Walnut Kernels | Akhrot ...",
+        "price": 8.27,
+        "rating": 3.9,
+        "has_image": true,
+        "main_cat": "grocery & gourmet foods",
+        "sub_cat": "All Grocery & Gourmet Foods"
+      },
+      {
+        "name": "Sugar Free Green Natural Stevia Jar(200 g)",
+        "price": 162.0,
+        "rating": 4.3,
+        "has_image": true,
+        "main_cat": "grocery & gourmet foods",
+        "sub_cat": "All Grocery & Gourmet Foods"
+      },
+      {
+        "name": "Daawat Pulav, Long Grains, Fluffy Basmati for finest Pulav, 1 Kg",
+        "price": 138.0,
+        "rating": 4.3,
+        "has_image": true,
+        "main_cat": "grocery & gourmet foods",
+        "sub_cat": "All Grocery & Gourmet Foods"
+      }
+    ],
+    "Pet Supplies": [
+      {
+        "name": "Meat Up Chicken Flavour Real Chicken Dog Biscuit For All Life Stages, 1kg (Buy 1 Get 1 Free)",
+        "price": 3.95,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "pet supplies",
+        "sub_cat": "All Pet Supplies"
+      },
+      {
+        "name": "Purepet Ocean Fish Adult Dry Cat Food, 1.2kg",
+        "price": 179.0,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "pet supplies",
+        "sub_cat": "All Pet Supplies"
+      },
+      {
+        "name": "Purepet Mackerel Adult Dry Cat Food, 1.2 kg",
+        "price": 185.0,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "pet supplies",
+        "sub_cat": "All Pet Supplies"
+      }
+    ],
+    "Men's Clothing": [
+      {
+        "name": "Aqualogica Glow+ Dewy Sunscreen SPF 50 PA+++ For UVA/B & Blue Light Protection, for Glowing & Well Protected Skin, Cream, 50G",
+        "price": 4.23,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "stores",
+        "sub_cat": "Amazon Fashion"
+      },
+      {
+        "name": "MARVIK Soft Silicone Adjustable Band Strap Compatible for Oneplus Smart Band & Oppo Smart Band",
+        "price": 3.0,
+        "rating": 3.9,
+        "has_image": true,
+        "main_cat": "stores",
+        "sub_cat": "Amazon Fashion"
+      },
+      {
+        "name": "108 Panchatantra Stories for Children (Illustrated) - Story Book for Kids - Moral Stories - Bedtime Stories - 3 Years to 1...",
+        "price": 125.0,
+        "rating": 4.4,
+        "has_image": true,
+        "main_cat": "stores",
+        "sub_cat": "Amazon Fashion"
+      }
+    ],
+    "Jewelry & Watches": [
+      {
+        "name": "GLUN Bolt Electronic Portable Fishing Hook Type Digital LED Screen Luggage Weighing Scale, 50 kg/110 Lb (Black)",
+        "price": 3.35,
+        "rating": 3.9,
+        "has_image": false,
+        "main_cat": "accessories",
+        "sub_cat": "Bags & Luggage"
+      },
+      {
+        "name": "Boldfit Shoe Bag for Travel & Storage Travel Organizer for Women & Men Travel Accessories Shoe Organizer Shoe Bags Pouches...",
+        "price": 199.0,
+        "rating": 4.5,
+        "has_image": false,
+        "main_cat": "accessories",
+        "sub_cat": "Bags & Luggage"
+      },
+      {
+        "name": "Storite 2 Pack Moisture Proof Nylon Large Size Underbed Storage Bag (54 x 46 x 28 cm) - Black, Rectangular",
+        "price": 8.42,
+        "rating": 4.3,
+        "has_image": false,
+        "main_cat": "accessories",
+        "sub_cat": "Bags & Luggage"
+      }
+    ],
+    "Women's Clothing": [
+      {
+        "name": "Feel it Comfortable Leatherite Casual/Formal Ballerina for Women's & Girl's - (1104-P)",
+        "price": 6.64,
+        "rating": 4.1,
+        "has_image": false,
+        "main_cat": "women's shoes",
+        "sub_cat": "Ballerinas"
+      },
+      {
+        "name": "Liberty Women ELENA-113 Casual BalletFlats",
+        "price": 3.65,
+        "rating": 2.6,
+        "has_image": false,
+        "main_cat": "women's shoes",
+        "sub_cat": "Ballerinas"
+      },
+      {
+        "name": "Max Women Ballerina Sneaker",
+        "price": 7.89,
+        "rating": 3.8,
+        "has_image": false,
+        "main_cat": "women's shoes",
+        "sub_cat": "Ballerinas"
+      }
+    ],
+    "Beauty & Personal Care": [
+      {
+        "name": "WOW Skin Science Vitamin C Serum for Skin whitenening - Brightening and Hyperpigmentation. Genuine 20% - 30ml",
+        "price": 4.96,
+        "rating": 3.9,
+        "has_image": true,
+        "main_cat": "beauty & health",
+        "sub_cat": "Beauty & Grooming"
+      },
+      {
+        "name": "Dot & key Lip Plumping Mask Vitamin C + E (Lingenberry), 15ml",
+        "price": 185.0,
+        "rating": 3.9,
+        "has_image": true,
+        "main_cat": "beauty & health",
+        "sub_cat": "Beauty & Grooming"
+      },
+      {
+        "name": "Park Avenue Signature Collection Premium Body Spray for Men, 2 Voyage & 1 Neo FREE, Fresh Long Lasting Fragrance (Pack of ...",
+        "price": 5.09,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "beauty & health",
+        "sub_cat": "Beauty & Grooming"
+      }
+    ],
+    "Shoes & Footwear": [
+      {
+        "name": "Sparx mens Sd9039g Sneakers",
+        "price": 6.01,
+        "rating": 4.0,
+        "has_image": true,
+        "main_cat": "men's shoes",
+        "sub_cat": "Casual Shoes"
+      },
+      {
+        "name": "Sparx Mens Sm-439 Sneaker",
+        "price": 7.16,
+        "rating": 4.2,
+        "has_image": true,
+        "main_cat": "men's shoes",
+        "sub_cat": "Casual Shoes"
+      },
+      {
+        "name": "crocs Unisex Adult Slate Grey/Lime Punch Bayaband Clog 205089-0GX M8W10",
+        "price": 37.35,
+        "rating": null,
+        "has_image": true,
+        "main_cat": "men's shoes",
+        "sub_cat": "Casual Shoes"
+      }
+    ],
+    "Tools & Hardware": [
+      {
+        "name": "Kitchen Need - Washable and Reusable - (Pack of 1 Roll) Kitchen Printed Tissue/Towel Paper Roll - Washable and Reusable ap...",
+        "price": 118.0,
+        "rating": 3.8,
+        "has_image": true,
+        "main_cat": "industrial supplies",
+        "sub_cat": "Industrial & Scientific Supplies"
+      },
+      {
+        "name": "Selpak Imported Paper Towel Kitchen Roll 3ply - 6 Rolls",
+        "price": 9.28,
+        "rating": 4.6,
+        "has_image": true,
+        "main_cat": "industrial supplies",
+        "sub_cat": "Industrial & Scientific Supplies"
+      },
+      {
+        "name": "POSH Male to Male VGA Cable 1.5 Meter, Support PC/Monitor/LCD/LED, Plasma, Projector, TFT. VGA to VGA Converter Adapter Cable",
+        "price": 88.0,
+        "rating": 3.5,
+        "has_image": true,
+        "main_cat": "industrial supplies",
+        "sub_cat": "Industrial & Scientific Supplies"
+      }
+    ]
+  }
+}

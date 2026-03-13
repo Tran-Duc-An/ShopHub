@@ -1,0 +1,155 @@
+================================================================
+  IMPORT REPORT  |  2026-03-13 13:08:58
+================================================================
+  Database     : shophub
+  Inserted     : 29,910 products
+  TARGET       : 50,000   PER_CAT: 2,000
+
+  No image     : 10,100  (33.8%)
+  No rating    : 4,742  (15.9%)
+  Avg price    : $41.89
+  Price range  : $2.42  -  $1551.81
+
+── Image URL check ─────────────────────────────────────
+  Live (verified) : 19,810
+  Dead (cleared)  : 10,100
+  No URL          : 0
+
+── Category breakdown ──────────────────────────────────
+  Home & Kitchen                      ##############################   2,000
+  Bags & Luggage                      ##############################   2,000
+  Baby & Kids                         ##############################   2,000
+  Automotive                          ##############################   2,000
+  Cameras & Photography               ##############################   2,000
+  Fitness & Gym                       ##############################   2,000
+  Food & Beverages                    ##############################   2,000
+  Pet Supplies                        ##############################   2,000
+  Men's Clothing                      ##############################   2,000
+  Jewelry & Watches                   ##############################   2,000
+  Women's Clothing                    ##############################   2,000
+  Beauty & Personal Care              ##############################   2,000
+  Shoes & Footwear                    ##############################   2,000
+  Tools & Hardware                    ##############################   2,000
+  Musical Instruments                 ############################     1,910
+
+── Samples per category ────────────────────────────────
+
+  [ Automotive ]
+    [NO IMG] SOFTSPUN Microfiber Cloth - 4 pcs - 40x40 cms - 340 GSM Gr $3.24     *4.3
+            main: car & motorbike  /  sub: All Car & Motorbike Products
+    [NO IMG] Involve Your Senses One Musk Organic Car Perfume Bar, Invo $3.7      *3.8
+            main: car & motorbike  /  sub: All Car & Motorbike Products
+    [NO IMG] ShineXPro Microfiber Car Cleaning Cloth - OG Soft 500 GSM  $6.01     *4.3
+            main: car & motorbike  /  sub: All Car & Motorbike Products
+
+  [ Baby & Kids ]
+    [NO IMG] DOMENICO Waterproof Colorful Children Bib Cute Cartoon Ani $3.55     *4.1
+            main: toys & baby products  /  sub: Nursing & Feeding
+    [NO IMG] Fisher-Price Baby's Food Mash and Serve Bowl Set (3 Months $3.2      *4.4
+            main: toys & baby products  /  sub: Nursing & Feeding
+    [NO IMG] Naughty Kidz Water Filled Soft Cooling Teether Bpa Free Sp $175.0    *3.1
+            main: toys & baby products  /  sub: Nursing & Feeding
+
+  [ Bags & Luggage ]
+    [IMG]    Alfisha Nylon Waterproof Strolley Luggage Duffle Bag with  $6.42     *3.5
+            main: bags & luggage  /  sub: Travel Duffles
+    [IMG]    TAGUDA travel foldable portable lightweight luggage storag $3.6      *3.4
+            main: bags & luggage  /  sub: Travel Duffles
+    [IMG]    Gear polyester 24 Cms Duffle Bag(METRO NEW MAXIS DUFFELL C $7.58     *4.2
+            main: bags & luggage  /  sub: Travel Duffles
+
+  [ Beauty & Personal Care ]
+    [IMG]    WOW Skin Science Vitamin C Serum for Skin whitenening - Br $4.96     *3.9
+            main: beauty & health  /  sub: Beauty & Grooming
+    [IMG]    Dot & key Lip Plumping Mask Vitamin C + E (Lingenberry), 1 $185.0    *3.9
+            main: beauty & health  /  sub: Beauty & Grooming
+    [IMG]    Park Avenue Signature Collection Premium Body Spray for Me $5.09     *4.2
+            main: beauty & health  /  sub: Beauty & Grooming
+
+  [ Cameras & Photography ]
+    [IMG]    Redmi 10 Power (Power Black, 8GB RAM, 128GB Storage)       $132.52   *4.0
+            main: tv, audio & cameras  /  sub: All Electronics
+    [IMG]    OnePlus Nord CE 2 Lite 5G (Blue Tide, 6GB RAM, 128GB Stora $228.9    *4.3
+            main: tv, audio & cameras  /  sub: All Electronics
+    [IMG]    OnePlus Bullets Z2 Bluetooth Wireless in Ear Earphones wit $24.08    *4.2
+            main: tv, audio & cameras  /  sub: All Electronics
+
+  [ Fitness & Gym ]
+    [IMG]    Boldfit Resistance Tube with Foam Handles, Door Anchor for $3.36     *4.0
+            main: sports & fitness  /  sub: All Exercise & Fitness
+    [IMG]    Strauss Exercise Latex Resistance Bands, (Set of 5)        $5.89     *4.1
+            main: sports & fitness  /  sub: All Exercise & Fitness
+    [IMG]    AUXTER Faux Leather 23 Cms Duffle Bag(AUX_GB_LE_Black -SE_ $4.53     *4.3
+            main: sports & fitness  /  sub: All Exercise & Fitness
+
+  [ Food & Beverages ]
+    [IMG]    Nutraj 100% Natural Dried Premium California Walnut Kernel $8.27     *3.9
+            main: grocery & gourmet foods  /  sub: All Grocery & Gourmet Foods
+    [IMG]    Sugar Free Green Natural Stevia Jar(200 g)                 $162.0    *4.3
+            main: grocery & gourmet foods  /  sub: All Grocery & Gourmet Foods
+    [IMG]    Daawat Pulav, Long Grains, Fluffy Basmati for finest Pulav $138.0    *4.3
+            main: grocery & gourmet foods  /  sub: All Grocery & Gourmet Foods
+
+  [ Home & Kitchen ]
+    [NO IMG] iSTAR Stainless Steel 304 Grade Foldable Towel Hanger for  $6.55     *4.5
+            main: home & kitchen  /  sub: Furniture
+    [NO IMG] Lukzer Engineered Wood Computer Desk with One Tier Shelves $32.41    *3.7
+            main: home & kitchen  /  sub: Furniture
+    [NO IMG] Tiipro Prayer Mat (Black, Polyester, Standard, 1 Piece)    $181.0    *4.2
+            main: home & kitchen  /  sub: Furniture
+
+  [ Jewelry & Watches ]
+    [NO IMG] GLUN Bolt Electronic Portable Fishing Hook Type Digital LE $3.35     *3.9
+            main: accessories  /  sub: Bags & Luggage
+    [NO IMG] Boldfit Shoe Bag for Travel & Storage Travel Organizer for $199.0    *4.5
+            main: accessories  /  sub: Bags & Luggage
+    [NO IMG] Storite 2 Pack Moisture Proof Nylon Large Size Underbed St $8.42     *4.3
+            main: accessories  /  sub: Bags & Luggage
+
+  [ Men's Clothing ]
+    [IMG]    Aqualogica Glow+ Dewy Sunscreen SPF 50 PA+++ For UVA/B & B $4.23     *4.2
+            main: stores  /  sub: Amazon Fashion
+    [IMG]    MARVIK Soft Silicone Adjustable Band Strap Compatible for  $3.0      *3.9
+            main: stores  /  sub: Amazon Fashion
+    [IMG]    108 Panchatantra Stories for Children (Illustrated) - Stor $125.0    *4.4
+            main: stores  /  sub: Amazon Fashion
+
+  [ Musical Instruments ]
+    [NO IMG] Arturia MiniLab 3, 25 Slim-Key USB-C Midi Controller with  $120.36   *4.6
+            main: music  /  sub: Musical Instruments & Professional Audio
+    [NO IMG] YOUNG ELECTRONICS Wireless Singing Mike Multi-Function Blu $5.72     *3.0
+            main: music  /  sub: Musical Instruments & Professional Audio
+    [NO IMG] AHUJA Wireless Microphone AWM-700U2                        $85.36    *4.3
+            main: music  /  sub: Musical Instruments & Professional Audio
+
+  [ Pet Supplies ]
+    [IMG]    Meat Up Chicken Flavour Real Chicken Dog Biscuit For All L $3.95     *4.2
+            main: pet supplies  /  sub: All Pet Supplies
+    [IMG]    Purepet Ocean Fish Adult Dry Cat Food, 1.2kg               $179.0    *4.2
+            main: pet supplies  /  sub: All Pet Supplies
+    [IMG]    Purepet Mackerel Adult Dry Cat Food, 1.2 kg                $185.0    *4.2
+            main: pet supplies  /  sub: All Pet Supplies
+
+  [ Shoes & Footwear ]
+    [IMG]    Sparx mens Sd9039g Sneakers                                $6.01     *4.0
+            main: men's shoes  /  sub: Casual Shoes
+    [IMG]    Sparx Mens Sm-439 Sneaker                                  $7.16     *4.2
+            main: men's shoes  /  sub: Casual Shoes
+    [IMG]    crocs Unisex Adult Slate Grey/Lime Punch Bayaband Clog 205 $37.35    no rating
+            main: men's shoes  /  sub: Casual Shoes
+
+  [ Tools & Hardware ]
+    [IMG]    Kitchen Need - Washable and Reusable - (Pack of 1 Roll) Ki $118.0    *3.8
+            main: industrial supplies  /  sub: Industrial & Scientific Supplies
+    [IMG]    Selpak Imported Paper Towel Kitchen Roll 3ply - 6 Rolls    $9.28     *4.6
+            main: industrial supplies  /  sub: Industrial & Scientific Supplies
+    [IMG]    POSH Male to Male VGA Cable 1.5 Meter, Support PC/Monitor/ $88.0     *3.5
+            main: industrial supplies  /  sub: Industrial & Scientific Supplies
+
+  [ Women's Clothing ]
+    [NO IMG] Feel it Comfortable Leatherite Casual/Formal Ballerina for $6.64     *4.1
+            main: women's shoes  /  sub: Ballerinas
+    [NO IMG] Liberty Women ELENA-113 Casual BalletFlats                 $3.65     *2.6
+            main: women's shoes  /  sub: Ballerinas
+    [NO IMG] Max Women Ballerina Sneaker                                $7.89     *3.8
+            main: women's shoes  /  sub: Ballerinas

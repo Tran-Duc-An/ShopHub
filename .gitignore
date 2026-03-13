@@ -38,6 +38,10 @@ venv/
 
 # Uploaded files
 backend/uploads/*
+
+# Ignore large data archives
+DATA/archive/
+DATA/*.csv
 !backend/uploads/.gitkeep
 
 # Data files (large CSVs and databases)
