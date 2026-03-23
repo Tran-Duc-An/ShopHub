@@ -46,4 +46,4 @@ DATA/*.csv
 
 # Data files (large CSVs and databases)
 DATA/*.csv
-DATA/*.db
+DATA/*.db   
